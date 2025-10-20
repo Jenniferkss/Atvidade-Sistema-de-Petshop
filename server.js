@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import petsRoutes from './src/routes/petRoute.js'
 
 // Criar aplicação com Express e configurar para aceitar JSON
 const app = express();
@@ -14,8 +15,11 @@ app.get("/", (req, res) => {
   res.json({ message: "🐶 API dos Pets funcionando!" });
 });
 
+// Aqui vão suas rotas 
+app.use('/pets', petsRoutes);
 
 // Iniciar servidor escutando na porta definida
 app.listen(serverPort, () => {
   console.log(`🐕 Servidor rodando em http://localhost:${serverPort} 🐶`);
 });
+

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cls && nodemon server.js",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "start": "node server.js"
   },
   "keywords": [
     "Banco de dados",
@@ -14,12 +15,26 @@
   ],
   "author": "",
   "license": "MIT",
-  "description": "",
   "dependencies": {
     "@prisma/client": "^6.16.3",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
-    "prisma": "^6.16.3"
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "prisma": "^6.16.3",
+    "sequelize": "^6.37.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jenniferkss/Atvidade-Sistema-de-Petshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jenniferkss/Atvidade-Sistema-de-Petshop/issues"
+  },
+  "homepage": "https://github.com/Jenniferkss/Atvidade-Sistema-de-Petshop#readme",
+  "description": "",
+  "devDependencies": {
+    "sequelize-cli": "^6.6.3"
   }
 }
