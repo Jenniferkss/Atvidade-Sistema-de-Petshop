@@ -9,7 +9,13 @@ router.get("/", PetController.listarTodos);
 // Rota getById 
 router.get("/:id", PetController.listarUm)
 
+//Rota Create 
+router.post("/",PetController.criar)
 
+//Rota Delete 
+router.delete("/:id",PetController.apagar)
 
+//Rota Put 
+router.put("/:id",PetController.atualizar)
 
 export default router;

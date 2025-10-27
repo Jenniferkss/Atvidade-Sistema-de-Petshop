@@ -52,3 +52,92 @@ export const listarUm = async (req,res) => {
         })
     }
 }
+
+export const criar = async (req, res) => {
+    try {
+      const { nome,especie,idade,dono } = req.body;
+  
+      const dado = req.body;
+      // Validação
+      const camposObrigatorios = ["nome", "especie", "idade", "dono"];
+  
+      const faltando = camposObrigatorios.filter((campo) => !dado[campo]);
+  
+      if (faltando.length > 0) {
+        return res.status(400).json({
+          erro: `Os seguintes campos são obrigatórios: ${faltando.join(", ")}.`,
+        });
+      }
+      const novoPet = await PetModel.create(dado);
+      res.status(201).json({
+        mensagem: "Pet criado com sucesso!",
+        pet: novoPet,
+      });
+    } catch (error) {
+      res.status(500).json({
+        erro: "Erro ao criar pet",
+        detalhes: error.message,
+      });
+    }
+  };
+  
+export const apagar = async (req,res) => {
+    try {
+      const id = parseInt(req.params.id);
+  
+      const petExiste = await PetModel.findById(id);
+      if (!petExiste) {
+        return res.status(404).json({
+          erro: "Pet não encontrado com esse id",
+          id: id,
+        });
+      }
+      await PetModel.deletePet(id);
+  
+      res.status(200).json({
+        mensagem: "Pet removido com sucesso",
+        petRemovido: petExiste,
+      });
+    } catch (error) {
+      res.status(500).json({
+        erro: "Erro ao apagar Pet!",
+        detalhes: error.mensage,
+      });
+    }
+  };
+  export const atualizar = async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const dados = req.body;
+  
+      const petExiste = await PetModel.findById(id);
+  
+      if (!petExiste) {
+        return res.status(404).json({
+          erro: "Pet não encontrado com esse id",
+          id: id,
+        });
+      }
+      if (dados.especie) {
+        const especiesValidas = ["Cachorro", "Gato", "Coelho", "Hamster"];
+        if (!especiesValidas.includes(dados.especie)) {
+          return res.status(400).json({
+            erro: "Especie inválida!",
+            especiesValidas,
+          });
+        }
+      }
+      const PetAtualizado = await PetModel.update(id, dados);
+  
+      res.status(200).json({
+        mensagem: "Pet atualizado com sucesso",
+        Pet: PetAtualizado,
+      });
+    } catch (error) {
+      res.status(500).json({
+        erro: "Erro ao atualizar pets",
+        detalhes: error.message,
+      });
+    }
+  };
+  
